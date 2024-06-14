@@ -13,6 +13,18 @@ jobs:
     - name: Checkout 코드
       uses: actions/checkout@v2
 
+    - name: Log in to Docker Hub
+      run: echo "${{ secrets.DOCKERHUB_PASSWORD }}" | docker login -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
+
+    - name: Build Docker image
+      run: |
+        docker build --tag teentalktalk/teentalktalk:latest -f Dockerfile .
+        docker images  # Optional: Print Docker images for verification
+
+    - name: Push Docker image to Docker Hub
+      run: |
+        docker push teentalktalk/teentalktalk:latest
+        
     - name: 설정 파일 생성
       run: |
         echo "서버 설정 파일을 생성합니다..."
@@ -32,9 +44,10 @@ jobs:
         echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
         chmod 600 ~/.ssh/id_rsa
         ssh-keyscan -p 22 223.130.156.202 >> ~/.ssh/known_hosts
-        ssh root@223.130.156.202 "mkdir -p /path/to/app"
-        scp -rv app root@223.130.156.202:/path/to/app
-        ssh root@223.130.156.202 "cd /path/to/app && npm install && npm start"
-        echo "전체 스크립트 결과 코드: $?"
+        ssh -i ~/.ssh/server_key -p 12321 root@210.89.181.89 '
+          echo "Connected to NCP Server"
+          docker pull teentalktalk/teentalktalk:latest
+          docker stop backend || true
+          docker compose up -d
       env:
         SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
