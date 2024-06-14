@@ -18,7 +18,7 @@ jobs:
 
     - name: Build Docker image
       run: |
-        docker buildx build --platform linux/amd64 --push --tag teentalktalk/teentalktalk:latest -f Dockerfile .
+        docker build -t teentalktalk .
         
     - name: 설정 파일 생성
       run: |
