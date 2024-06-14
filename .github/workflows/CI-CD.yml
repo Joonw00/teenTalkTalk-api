@@ -33,7 +33,7 @@ jobs:
         chmod 600 ~/.ssh/id_rsa
         ssh-keyscan -p 22 223.130.156.202 >> ~/.ssh/known_hosts
         ssh root@223.130.156.202 "mkdir -p /path/to/app"
-        scp -r ./ root@223.130.156.202:/path/to/app
+        scp -r app root@223.130.156.202:/path/to/app
         ssh root@223.130.156.202 "cd /path/to/app && npm install && npm start"
         echo "전체 스크립트 결과 코드: $?"
       env:
