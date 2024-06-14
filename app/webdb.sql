@@ -14,7 +14,6 @@ CREATE TABLE webdb.`tb_user` (
   `board_idx` int(11) NOT NULL AUTO_INCREMENT,
   `uid` varchar(100) NOT NULL,
   `userid` varchar(255) NOT NULL, -- **사용자 고유 식별 번호 컬럼 추가 쿼리 : alter table `tb_user` add `uid` varchar(100) NOT NULL after `board_idx` ;
-  `reg_no` varchar(30) NULL,
   `userpw` varchar(255) NOT NULL, -- **password -> userpw 이름 변경 쿼리 : alter table `tb_user` change `password` `userpw` varchar(255) NOT NULL;
   `user_name` varchar(255) NOT NULL, -- **name -> user_name 이름 변경 쿼리 : alter table `tb_user` change `name` `user_name` varchar(255) NOT NULL;
   `user_role` varchar(1) NULL,  -- 0 : 사용자, 1 : 최고 관리자(root), 2 : 부관리자, 3 : 정책 관리자
@@ -26,9 +25,7 @@ CREATE TABLE webdb.`tb_user` (
   `user_email` varchar(50) NULL,
   `salt` varchar(255) NOT NULL,
   `fig` varchar(4) NOT NULL DEFAULT 0, 
-  `token_temp` VARCHAR(100) NULL, -- **사용자 토큰 추가 커리 : alter table `tb_user` add `token_temp` varchar(100) NULL after `fig` ;
   `event_part` varchar(1) NOT NULL DEFAULT 0, -- **이벤트 참여 여부 컬럼
-  `del_chk` varchar(1) NOT NULL DEFAULT 'N',
   `ins_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `upd_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   -- PRIMARY KEY (`board_idx`) USING BTREE 

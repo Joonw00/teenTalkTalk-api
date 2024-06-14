@@ -20,10 +20,7 @@ router.get('/login', function (req, res) {
 });
 router.post("/login", async function(req, res) {
   try{
-    // 로그인 확인을 위해 컨트롤러 호출)
-    //json 형식으로 결과값을 받아옴
     var result = await login_controller.SignIn(req, res);
-    // result.code 값을 login.ejs로 전달
     if(result.code == 0){
       res.status(200).send({ message: '로그인에 성공했습니다.', code: result.code, role : req.session.user.data.user_role });
     } else {

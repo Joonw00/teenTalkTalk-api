@@ -115,7 +115,7 @@ exports.fetchData = async function(req, res) {
   var conn;
   try{
     conn = await db.getConnection();
-    var query = 'SELECT uid,userid,reg_no,user_name,user_role,user_type,youthAge_code,parentsAge_code,sex_class_code,emd_class_code,user_email,fig,ins_date,upd_date FROM webdb.tb_user';
+    var query = 'SELECT uid,userid,user_name,user_role,user_type,youthAge_code,parentsAge_code,sex_class_code,emd_class_code,user_email,fig,ins_date,upd_date FROM webdb.tb_user';
     rows = await conn.query(query); // 쿼리 실행
     return rows;
   } catch(error) {

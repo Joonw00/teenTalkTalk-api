@@ -1,0 +1,36 @@
+name: CI-CD
+
+on:
+  push:
+    branches:
+      - main 
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout 코드
+      uses: actions/checkout@v2
+
+    - name: 설정 파일 생성
+      run: |
+        echo "서버 설정 파일을 생성합니다..."
+        echo "export const serverConfig = {" >> serverConfig.js
+        echo "  ipAddress: '${{ secrets.PUBLIC_IP }}'," >> serverConfig.js
+        echo "  password: '${{ secrets.SERVER_PASSWORD }}'" >> serverConfig.js
+        echo "};" >> serverConfig.js
+
+    - name: Node.js 애플리케이션 빌드
+      run: |
+        cd app
+        npm install
+        npm run build
+
+    - name: 서버 배포
+      run: |
+        ssh user@223.130.156.202 "mkdir -p /path/to/app"
+        scp -r ./dist user@223.130.156.202:/path/to/app
+        ssh user@223.130.156.202 "cd /path/to/app && npm install && npm start"
+      env:
+        SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
