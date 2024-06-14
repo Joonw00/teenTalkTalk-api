@@ -32,6 +32,7 @@ jobs:
         echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
         chmod 600 ~/.ssh/id_rsa
         ssh-keyscan -p 22 223.130.156.202 >> ~/.ssh/known_hosts
+        cat /home/runner/.ssh/known_hosts
         ssh root@223.130.156.202 "mkdir -p /path/to/app"
         scp -r ./dist root@223.130.156.202:/path/to/app
         ssh root@223.130.156.202 "cd /path/to/app && npm install && npm start"
