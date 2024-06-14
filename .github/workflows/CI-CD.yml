@@ -18,12 +18,7 @@ jobs:
 
     - name: Build Docker image
       run: |
-        docker build --tag teentalktalk/teentalktalk:latest -f Dockerfile .
-        docker images  # Optional: Print Docker images for verification
-
-    - name: Push Docker image to Docker Hub
-      run: |
-        docker push teentalktalk/teentalktalk:latest
+        docker buildx build --platform linux/amd64 --push --tag teentalktalk/teentalktalk:latest -f Dockerfile .
         
     - name: 설정 파일 생성
       run: |
