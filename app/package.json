@@ -39,7 +39,7 @@
   "scripts": {
     "start": "nodemon ./bin/www.js",
     "build": "npm run compile && npm run bundle",
-        "compile": "tsc",
+    "compile": "tsc",
     "bundle": "webpack --mode production",
     "test": "echo \"Tests are not specified yet.\""
   },
