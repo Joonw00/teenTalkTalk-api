@@ -39,10 +39,9 @@ jobs:
         echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
         chmod 600 ~/.ssh/id_rsa
         ssh-keyscan -p 22 223.130.156.202 >> ~/.ssh/known_hosts
-        ssh -i ~/.ssh/server_key -p 12321 root@210.89.181.89 '
+        ssh -i ~/.ssh/id_rsa -p 22 root@210.89.181.89 '
           echo "Connected to NCP Server"
           docker pull teentalktalk/teentalktalk:latest
-          docker stop backend || true
           docker compose up -d
       env:
         SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
