@@ -33,7 +33,7 @@ jobs:
         chmod 600 ~/.ssh/id_rsa
         ssh-keyscan -H 223.130.156.202 >> ~/.ssh/known_hosts
         ssh root@223.130.156.202 "mkdir -p /path/to/app"
-        scp -r ./dist user@223.130.156.202:/path/to/app
+        scp -r ./dist root@223.130.156.202:/path/to/app
         ssh root@223.130.156.202 "cd /path/to/app && npm install && npm start"
       env:
         SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
